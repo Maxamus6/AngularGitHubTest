@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="app">
+<head>
+    <title>Angular Github Viewer</title>
+</head>
+<body ng-controller="Main">
+    <div id="w">
+        <div>
+            <p>Enter a Github username below and click the button to display profile info.</p>
+            <input type="text" id="ghusername" ng-model="username" placeholder="Github username...">
+            <a href="#" id="ghsubmitbtn" ng-click="getGitInfo()">Get User Data</a>
+        </div>
+
+        <div ng-show="userNotFound">
+            <h2>No User Info Found</h2>
+        </div>
+
+        <div ng-show="loaded">
+            <h2>
+                {{user.name}}
+                <span>(@<a href="{{user.html_url}}" target="_blank"> {{user.login}} </a>)</span>
+            </h2>
+            <div>
+                <div>
+                    <a href="{{ user.html_url }}" target="_blank">
+                        <img src="{{ user.avatar_url }}" width="80" height="80" alt="{{ user.login }}">
+                    </a>
+                </div>
+                Followers: {{ user.followers }} - Following: {{ user.following }}<br>Repos: {{ user.public_repos }}</p>
+            </div>
+            <div>
+                <p ng-hide="reposFound">No repos!</p>
+                <div ng-show="reposFound">
+                    <p><strong>Repos List:</strong></p>
+                    <ul ng-repeat="repo in repos">
+                        <li><a href="{{repo.html_url}}" target="_blank"> {{repo.name}} </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/angular.min.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/main.js"></script>
+</body>
+</html>
